@@ -5,6 +5,7 @@
 		      	<div class="grid-col-12">
 				    <%= content_for :page_title do %>New Social Media Account<% end %>
 				  	<h1 class="page-header">New Social Media Account</h1>
+					<p> <%= link_to "Bulk Import", social_media_import_admin_outlets_path, {:class => "usa-button" } %></p>
 				  	<%= render 'form' %>
 				</div>
 			</div>
