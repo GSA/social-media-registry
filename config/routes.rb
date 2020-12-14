@@ -61,7 +61,8 @@
 #                                              PUT      /admin/official_tags/:id(.:format)                                                       admin/official_tags#update
 #                                              DELETE   /admin/official_tags/:id(.:format)                                                       admin/official_tags#destroy
 #            social_media_export_admin_outlets POST     /admin/social_media/social_media_export(.:format)                                        admin/social_media#social_media_export
-#           social_media_import_admin_outlets  POST     /admin/social_media/social_media_import(.:format)                                        admin/social_media#social_media_import
+#            social_media_import_admin_outlets GET      /admin/social_media/social_media_import(.:format)                                        admin/social_media#social_media_import
+#                     bulk_social_media_upload POST     /admin/social_media/bulk_social_media_upload(.:format)                                   admin/social_media#bulk_social_media_upload
 #                     datatables_admin_outlets GET      /admin/social_media/datatables(.:format)                                                 admin/social_media#datatables
 #                account_for_url_admin_outlets GET      /admin/social_media/account_for_url(.:format)                                            admin/social_media#account_for_url
 #                         history_admin_outlet GET      /admin/social_media/:id/history(.:format)                                                admin/social_media#history
@@ -278,7 +279,8 @@ Ringsail::Application.routes.draw do
       concerns: [:activity_and_history, :publish_and_archive] do
       collection do
         post "social_media_export"
-        post "social_media_import"
+        get "social_media_import"
+        post "bulk_social_media_upload"
         get "datatables"
         get "account_for_url"
       end

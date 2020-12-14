@@ -1,0 +1,18 @@
+<section class="usa-section" id="hotspot_featured" >
+	<div class="paper">
+	    <div class="grid-container grid-container-desktop">
+	      	<div class="grid-row">
+		      	<div class="grid-col-12">
+                    <h1 class="page-header">Bulk Social Media Account Upload</h1>
+                    <p>Put the requisite csv format here...</p>
+                    <div>
+                        <%= form_for @import, {:action => bulk_social_media_upload_admin_outlets_path } do |f| %>
+                        <%= f.file_field :import %>
+                        <%= f.submit %>
+                        <% end %>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</section>

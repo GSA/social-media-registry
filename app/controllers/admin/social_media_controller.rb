@@ -49,6 +49,14 @@ class Admin::SocialMediaController < Admin::AdminController
     end
   end
 
+  def social_media_import
+    @import = ""
+  end
+
+  def bulk_social_media_upload
+    # @import = 
+  end
+
   def datatables
     @outlets = Outlet.uniq
     respond_to do |format|
