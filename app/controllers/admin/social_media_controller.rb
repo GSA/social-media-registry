@@ -54,7 +54,7 @@ class Admin::SocialMediaController < Admin::AdminController
   end
 
   def bulk_social_media_upload
-    # @import = 
+    @import = params[:import]
   end
 
   def datatables

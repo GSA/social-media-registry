@@ -6,7 +6,7 @@
                     <h1 class="page-header">Bulk Social Media Account Upload</h1>
                     <p>Put the requisite csv format here...</p>
                     <div>
-                        <%= form_for @import, {:action => bulk_social_media_upload_admin_outlets_path } do |f| %>
+                        <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
                         <%= f.file_field :import %>
                         <%= f.submit %>
                         <% end %>
