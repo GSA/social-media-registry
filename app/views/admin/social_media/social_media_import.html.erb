@@ -8,7 +8,7 @@
                     <div>
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
                         <%= f.file_field :import %>
-                        <%= f.submit %>
+                        <p><%= f.submit "Submit", :class => "usa-button" %><p>
                         <% end %>
                     </div>
                 </div>
