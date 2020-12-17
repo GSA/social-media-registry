@@ -7,7 +7,10 @@
                     <p>Put the requisite csv format here...</p>
                     <div>
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
-                        <%= f.file_field :import %>
+                        <label class="usa-button usa-button--outline">
+                            Choose file
+                            <span style="display:none"><%= f.file_field :import %></span>
+                        </label>
                         <p><%= f.submit "Submit", :class => "usa-button" %><p>
                         <% end %>
                     </div>
