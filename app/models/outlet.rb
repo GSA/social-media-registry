@@ -180,16 +180,6 @@ class Outlet < ActiveRecord::Base
     # end
   end
 
-  # def service_info
-  #   if self.service_url && self.service
-  #     if self.service_info.account
-  #       self.account = self.service_info.account
-  #     else
-  #       self.errors.push(:service_url, "should be able to be parsed from URL, check the format you provided. If you believe this to be in error, contact an administrator")
-  #     end
-  #   end
-  # end
-
   def self.to_csv(options = {})
     csv_file = CSV.generate(options) do |csv|
       columns_for_csv = ["id","created_at","updated_at","service_url","organization","account","language","service","status","short_description","long_description"]
