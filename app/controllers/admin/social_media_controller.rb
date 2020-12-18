@@ -54,7 +54,23 @@ class Admin::SocialMediaController < Admin::AdminController
   end
 
   def bulk_social_media_upload
-    @import = params[:import]
+    import = params["import"]
+    required_headers = ["service", "service_url", "organization", "short_description",
+                       "language", "agency_tokens", "user_tokens"]
+    unrequired_headers = ["long_description", "tag_tokens", "notes"]
+    
+    csv_data = CSV.read(import.tempfile, headers: true, header_converters: :symbol)
+    csv_array = csv_data.map(&:to_h)
+    invalid_count = 0
+    csv_array.each do |obj|
+      outlet = Outlet.new(obj)
+      if not outlet.save
+        invalid_count += 1
+      else
+        outlet.published!
+      end
+    end
+    redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." 
   end
 
   def datatables
