@@ -7,11 +7,13 @@
                     <p>Put the requisite csv format here...</p>
                     <div>
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
-                        <label class="usa-button usa-button--outline">
+                        <label id="input-label-id" class="usa-button usa-button--outline">
                             Choose file
-                            <span style="display:none"><%= f.file_field :import %></span>
+                            <span style="display:none">
+                                <%= f.file_field :import, required: true %>
+                            </span>
                         </label>
-                        <p><%= f.submit "Submit", :class => "usa-button" %><p>
+                        <p><%= f.submit "Submit", disabled: true, :class => "usa-button" %><p>
                         <% end %>
                     </div>
                 </div>
@@ -19,3 +21,21 @@
 		</div>
 	</div>
 </section>
+<% content_for :additional_javascript do %>
+  <script>
+    $(document).ready(
+        function(){
+            $('input:submit').attr('disabled',true);
+            $('input:file').change(
+                function(){
+                    if ($(this).val()){
+                        $('input:submit').removeAttr('disabled'); 
+                    }
+                    else {
+                        $('input:submit').attr('disabled',true);
+                    }
+                });
+            }  
+        );
+  </script>
+<% end %>
