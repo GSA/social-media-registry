@@ -10,7 +10,7 @@
                         <label id="input-label-id" class="usa-button usa-button--outline">
                             Choose file
                             <span style="display:none">
-                                <%= f.file_field :import, required: true %>
+                                <%= f.file_field :import, required: true, id: "customFile"%>
                             </span>
                         </label>
                         <p><%= f.submit "Submit", :class => "usa-button" %><p>
@@ -28,6 +28,7 @@
             $('input:submit').attr('disabled',true);
             $('input:file').change(
                 function(){
+                    $(document).find("#input-label-id").contents().get(0).nodeValue = "Uploaded"
                     if ($(this).val()){
                         $('input:submit').removeAttr('disabled'); 
                     }
