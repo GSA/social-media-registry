@@ -46,7 +46,7 @@ class Admin::SocialMediaController < Admin::AdminController
     end
     respond_to do |format|
       format.csv { render plain: @outlets.to_csv }
-    end
+      end
   end
 
   def social_media_import
@@ -58,7 +58,8 @@ class Admin::SocialMediaController < Admin::AdminController
       csv_array = CSV.read(params["import"].tempfile, headers: true, header_converters: :symbol).map(&:to_h)
       invalid_count = 0
       csv_array.each do |obj|
-        outlet = Outlet.new(obj)
+        new_obj = transform_csv_keys(obj)
+        outlet = Outlet.new(new_obj)
         if outlet.save
           outlet.published!
         else
@@ -252,4 +253,14 @@ class Admin::SocialMediaController < Admin::AdminController
       !tag.nil? ? tag.tag_text : nil
     end
 
+    def transform_csv_keys(obj)
+      mappings = { :account_platform => 'service', 
+                   :account_url => 'service_url',
+                   :account_name => 'organization',
+                   :agencies => 'agency_tokens',
+                   :contacts => 'user_tokens', }
+      obj.dup.transform_keys{ |k| obj[ mappings[k] ] = obj.delete(k) if mappings[k]}
+      return obj
+    end
+  
 end
