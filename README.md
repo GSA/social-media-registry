@@ -17,18 +17,17 @@ The U.S. General Services Administration created Ringsail as a registry of all s
 
 As built, it allows anyone with a .gov or .mil email address to register a social media account as an official government account. The information gathered about these social media accounts is then made available via an API.
 
-# Development
-
-Ringsail is currently being developed.  This document should be considered a living document, and will grow over time.  Organization is always appreciated.
-
 ## Requirements
 
-Ringsail is built on Ruby 2.1.5 and Rails 4.1.1, backed by a MySQL 5 database (or greater).
+The US Digital Registry is built using Ruby 2.4.6 and Rails 5.2.0, backed by a MySQL 5 database (or greater).
 
 ## Setup
 
-Commands:
+Modify `.env` file to reflect your specific `REGISTRY_IDP_CLIENT_ID` from the Login.gov Partner Dashboard, and export the ENV file to your local development environment.
+**hint**: you need to get setup with a Login.gov sandbox account in order to use Login.gov locally
 
+Commands:
+    bundle install
     rake db:create db:migrate db:seed
     rake services:load
     rails s
@@ -38,8 +37,6 @@ Commands:
 ### Single Sign On
 
 For the purposes of Single Sign-On (SSO), Ringsail integrates with Login.gov.  For this integration to work, the domain name of the service must be configured with Login.gov as an external dependency.  It also requires configuration of groups in the Environment Variables and a PEM file for integration with login.gov.
-
-In development mode, users from the db:seeds file will be created with each level of access available in the system.  There should be no need to integrate with a CAS provider for development purposes.
 
 If you are looking to run your own version of the application, either modify the authentication mechanism or integrate it with another mechanism using Omniauth.
 
