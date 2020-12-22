@@ -53,11 +53,6 @@ class Admin::SocialMediaController < Admin::AdminController
     @import = ""
   end
 
-  def download_sample_csv
-    filepath = "#{Rails.root}/public/sample.csv"
-    send_file filepath, type: "text/csv"
-  end
-
   def bulk_social_media_upload
     if !params[:import]
       redirect_to social_media_import_admin_outlets_path, notice: "No file uploaded"
