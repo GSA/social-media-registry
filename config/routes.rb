@@ -62,6 +62,7 @@
 #                                              DELETE   /admin/official_tags/:id(.:format)                                                       admin/official_tags#destroy
 #            social_media_export_admin_outlets POST     /admin/social_media/social_media_export(.:format)                                        admin/social_media#social_media_export
 #            social_media_import_admin_outlets GET      /admin/social_media/social_media_import(.:format)                                        admin/social_media#social_media_import
+#                          download_sample_csv GET      /admin/social_media/download_sample_csv(.:format)                                        admin/social_media#download_sample_csv
 #                     bulk_social_media_upload POST     /admin/social_media/bulk_social_media_upload(.:format)                                   admin/social_media#bulk_social_media_upload
 #                     datatables_admin_outlets GET      /admin/social_media/datatables(.:format)                                                 admin/social_media#datatables
 #                account_for_url_admin_outlets GET      /admin/social_media/account_for_url(.:format)                                            admin/social_media#account_for_url
@@ -280,6 +281,7 @@ Ringsail::Application.routes.draw do
       collection do
         post "social_media_export"
         get "social_media_import"
+        get "download_sample_csv"
         post "bulk_social_media_upload"
         get "datatables"
         get "account_for_url"

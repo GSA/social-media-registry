@@ -53,23 +53,28 @@ class Admin::SocialMediaController < Admin::AdminController
     @import = ""
   end
 
+  def download_sample_csv
+    filepath = "#{Rails.root}/public/sample.csv"
+    send_file filepath, type: "text/csv"
+  end
+
   def bulk_social_media_upload
-    if params["import"]
-      csv_array = CSV.read(params["import"].tempfile, headers: true, header_converters: :symbol).map(&:to_h)
-      invalid_count = 0
-      csv_array.each do |obj|
-        new_obj = transform_csv_keys(obj)
-        outlet = Outlet.new(new_obj)
-        if outlet.save
-          outlet.published!
-        else
-          invalid_count += 1  
-        end
-      end
-      redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." 
-    else
+    if !params[:import]
       redirect_to social_media_import_admin_outlets_path, notice: "No file uploaded"
-    end 
+    end
+    
+    csv_array = CSV.read(params[:import].tempfile, headers: true, header_converters: :symbol).map(&:to_h)
+    invalid_count = 0
+    csv_array.each do |obj|
+      new_obj = transform_csv_keys(obj)
+      outlet = Outlet.new(new_obj)
+      if outlet.save
+        outlet.published!
+      else
+        invalid_count += 1  
+      end
+    end
+    redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." 
   end
 
   def datatables
@@ -215,7 +220,8 @@ class Admin::SocialMediaController < Admin::AdminController
     def outlet_params
       params.require(:outlet).permit(:organization, :service_url, :location, :location_id, :status,
         :account, :service, :language, :agency_tokens, :user_tokens, :tag_tokens,
-        :short_description, :long_description, :primary_contact_id, :secondary_contact_id, :primary_agency_id, :secondary_agency_id, :notes)
+        :short_description, :long_description, :primary_contact_id, :secondary_contact_id, 
+        :primary_agency_id, :secondary_agency_id, :notes, :import)
     end
 
     def current_page
