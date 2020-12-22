@@ -24,9 +24,11 @@ The US Digital Registry is built using Ruby 2.4.6 and Rails 5.2.0, backed by a M
 ## Setup
 
 Modify `.env` file to reflect your specific `REGISTRY_IDP_CLIENT_ID` from the Login.gov Partner Dashboard, and export the ENV file to your local development environment.
+
 **hint**: you need to get setup with a Login.gov sandbox account in order to use Login.gov locally
 
 Commands:
+
     bundle install
     rake db:create db:migrate db:seed
     rake services:load
