@@ -260,8 +260,36 @@ class Admin::SocialMediaController < Admin::AdminController
                    :account_name => 'organization',
                    :agencies => 'agency_tokens',
                    :contacts => 'user_tokens', }
+      agencies = get_agency_tokens(obj[:agencies])
+      obj[:agencies] = agencies
+      users = get_user_tokens(obj[:contacts])
+      obj[:contacts] = users
       obj.dup.transform_keys{ |k| obj[ mappings[k] ] = obj.delete(k) if mappings[k]}
       return obj
+    end
+
+    def get_agency_tokens(agencies)
+      agencies = agencies.split("|")
+      agencies_arry = []
+      agencies.each do |agency|
+        agency = Agency.where("name LIKE ? OR shortname LIKE ?", "%#{agency}%", "%#{agency}%").select([:id,:name])
+        if agency
+          agencies_arry << agency.ids.first
+        end
+      end
+      return agencies_arry.join(",")
+    end
+
+    def get_user_tokens(users)
+      users = users.split("|")
+      users_arry = []
+      users.each do |user|
+        user = User.where("email LIKE ?", "%#{user}%").select([:id, :name])
+        if user
+          users_arry << user.ids.first
+        end
+      end
+      return users_arry.join(",")
     end
   
 end

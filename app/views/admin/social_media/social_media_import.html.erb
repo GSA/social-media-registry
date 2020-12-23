@@ -5,8 +5,8 @@
 		      	<div class="grid-col-12">
                     <h1 class="page-header">Bulk Social Media Account Upload</h1>
                     <%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %>
-                    <p>Your csv file must contain the following headers and corresponding data:</p>
-                    <p>Required: "account_platform","account_url","account_name","short_description","language","agencies","contacts"</p>
+                    <p>Your csv file must contain the following headers exactly as they are shown with their corresponding data:</p>
+                    <p>account_platform, account_url, account_name, short_description, language, agencies, contacts</p>
                     <div>
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
                         <label id="input-label-id" class="usa-button usa-button--outline">
