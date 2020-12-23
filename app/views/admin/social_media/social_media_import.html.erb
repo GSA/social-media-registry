@@ -17,11 +17,6 @@
                         </li>
                     </ul>
                     <p><%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %></p>
-                    <div class="usa-alert usa-alert--info usa-alert--no-icon">
-                        <div class="usa-alert__body">
-                            <p class="usa-alert__text">Only accounts with the required fields can be saved properly</p>
-                        </div>
-                    </div>
                     <div style="margin-top:1rem;">
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
                         <label id="input-label-id" class="usa-button usa-button--outline">
