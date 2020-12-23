@@ -54,11 +54,10 @@ class Admin::SocialMediaController < Admin::AdminController
   end
 
   def bulk_social_media_upload
-    if !params[:import]
-      redirect_to social_media_import_admin_outlets_path, notice: "No file uploaded"
-    end
-    
     csv_array = CSV.read(params[:import].tempfile, headers: true, header_converters: :symbol).map(&:to_h)
+    if csv_array.length > 500
+      redirect_to social_media_import_admin_outlets_path, notice: "File is too large, maximum number of rows is 500" and return
+    end
     invalid_count = 0
     csv_array.each do |obj|
       new_obj = transform_csv_keys(obj)
@@ -69,7 +68,7 @@ class Admin::SocialMediaController < Admin::AdminController
         invalid_count += 1  
       end
     end
-    redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." 
+    redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." and return
   end
 
   def datatables

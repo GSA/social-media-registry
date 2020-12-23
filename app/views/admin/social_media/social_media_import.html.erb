@@ -4,18 +4,19 @@
 	      	<div class="grid-row">
 		      	<div class="grid-col-12">
                     <h1 class="page-header">Bulk Social Media Account Upload</h1>
-                    <p><%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %></p>
                     <ul class="usa-process-list">
                         <li class="usa-process-list__item">
                             <h4 class="usa-process-list__heading">Create CSV File</h4>
                             <p class="margin-top-05">Your csv file must contain the following headers exactly as they are shown with their corresponding data: <b>account_platform, account_url, account_name, short_description, language, agencies, contacts</b></p>
                         </li>
+                        <br>
                         <li class="usa-process-list__item">
                             <h4 class="usa-process-list__heading">Agency and Contact Format</h4>
-                            <p class="margin-top-05">If you have more than one agency or contact you need to associate with an account, delineate them with a "|" between each item</p>
-                            <p class="margin-top-05">e.g. "contact1@contact.com|contact2@contact.com" or <br> "Department of First|Department of Second"</p>
+                            <p class="margin-top-05">If you have more than one agency or contact that needs to be associated with a single account, delineate each item with a "|" between them</p>
+                            <p class="margin-top-05"><b>Example:</b> "contact1@contact.com|contact2@contact.com" or <br> "Department of First|Department of Second"</p>
                         </li>
                     </ul>
+                    <p><%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %></p>
                     <div class="usa-alert usa-alert--info usa-alert--no-icon">
                         <div class="usa-alert__body">
                             <p class="usa-alert__text">Only accounts with the required fields can be saved properly</p>
