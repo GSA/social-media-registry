@@ -5,8 +5,18 @@
 		      	<div class="grid-col-12">
                     <h1 class="page-header">Bulk Social Media Account Upload</h1>
                     <%= link_to 'Download Sample CSV', "/docs/sample.csv", download: "sample.csv" %>
-                    <p>Your csv file must contain the following headers exactly as they are shown with their corresponding data:</p>
-                    <p>account_platform, account_url, account_name, short_description, language, agencies, contacts</p>
+                    <ol class="usa-process-list">
+                        <li class="usa-process-list__item">
+                            <h4 class="usa-process-list__heading">Create CSV File</h4>
+                            <p class="margin-top-05">Your csv file must contain the following headers exactly as they are shown with their corresponding data:</p>
+                            <p>account_platform, account_url, account_name, short_description, language, agencies, contacts</p>
+                        </li>
+                        <li class="usa-process-list__item">
+                            <h4 class="usa-process-list__heading">Agency and Contact Format</h4>
+                            <p class="margin-top-05">If you have more than one agency or contact you need to associate with an account, delineate them with a "|" between each item</p>
+                            <p>e.g. "contact1@contact.com|contact2@contact.com" or "Department of First|Department of Second"</p>
+                        </li>
+                    </ol>
                     <div>
                         <%= form_for @import, :url => {:action => "bulk_social_media_upload", :controller => "social_media"} do |f| %>
                         <label id="input-label-id" class="usa-button usa-button--outline">
