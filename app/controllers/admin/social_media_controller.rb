@@ -65,6 +65,7 @@ class Admin::SocialMediaController < Admin::AdminController
       outlet = Outlet.new(new_obj)
       if outlet.save
         outlet.published!
+        ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: outlet.id, body: outlet.as_indexed_json
       else
         invalid_count += 1  
       end
