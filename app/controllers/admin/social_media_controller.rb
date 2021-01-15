@@ -59,7 +59,7 @@ class Admin::SocialMediaController < Admin::AdminController
       redirect_to social_media_import_admin_outlets_path, notice: "File is too large, maximum number of rows is 500" and return
     end
     
-    invalid_count = 0
+    invalid_rows = []
     csv_array.each do |obj|
       new_obj = transform_csv_keys(obj)
       outlet = Outlet.new(new_obj)
@@ -67,10 +67,18 @@ class Admin::SocialMediaController < Admin::AdminController
         outlet.published!
         ELASTIC_SEARCH_CLIENT.index  index: 'outlets', type: 'outlet', id: outlet.id, body: outlet.as_indexed_json
       else
-        invalid_count += 1  
+        invalid_rows << outlet
       end
     end
-    redirect_to social_media_import_admin_outlets_path, notice: "#{csv_array.length() - invalid_count} Social Media Accounts were successfully created and published." and return
+
+    notice = "#{csv_array.length() - invalid_rows.length()} Social Media Accounts were successfully created and published.\n\n"
+    if invalid_rows.length > 0
+      notice += "The following data were <b>not</b> uploaded:\n"
+      invalid_rows.each do |row|
+        notice += "- <b>Account:</b> #{row.service}, <b>URL:</b> #{row.service_url}\n"
+      end
+    end
+    redirect_to social_media_import_admin_outlets_path, notice: notice and return
   end
 
   def datatables
